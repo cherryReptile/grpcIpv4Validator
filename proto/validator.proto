@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "/api";
+
+service Validator {
+  rpc Validate(ValRequest) returns (ValidatedResponse) {}
+}
+
+message ValRequest {
+  string ipv4 = 1;
+}
+
+message ValidatedResponse {
+  bool response = 1;
+}
