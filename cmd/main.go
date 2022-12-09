@@ -15,7 +15,7 @@ func main() {
 	appController := new(controllers.AppController)
 	app.Router.HandleFunc("/ip", appController.RequestToGRPCServer).Methods("POST")
 
-	s := validator.GRCPServer{}
+	s := validator.GRPCServer{}
 
 	go app.ApiRun("9000", chErr)
 	go validator.ListenAndServe(&s, chErr)

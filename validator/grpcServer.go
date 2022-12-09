@@ -8,11 +8,11 @@ import (
 	"net"
 )
 
-type GRCPServer struct {
+type GRPCServer struct {
 	api.UnimplementedValidatorServer
 }
 
-func (s *GRCPServer) Validate(ctx context.Context, request *api.ValRequest) (*api.ValidatedResponse, error) {
+func (s *GRPCServer) Validate(ctx context.Context, request *api.ValRequest) (*api.ValidatedResponse, error) {
 	if v := net.ParseIP(request.Ipv4); v == nil {
 		return &api.ValidatedResponse{Response: false}, nil
 	}
@@ -20,7 +20,7 @@ func (s *GRCPServer) Validate(ctx context.Context, request *api.ValRequest) (*ap
 	return &api.ValidatedResponse{Response: true}, nil
 }
 
-func ListenAndServe(srv *GRCPServer, errCh chan error) {
+func ListenAndServe(srv *GRPCServer, errCh chan error) {
 	s := grpc.NewServer()
 	api.RegisterValidatorServer(s, srv)
 	l, err := net.Listen("tcp", ":8080")
